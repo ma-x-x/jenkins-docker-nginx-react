@@ -3,11 +3,12 @@
 # 每次都需要 npm i，可合理利用 Docker 缓存，ADD 命令中内容发生改变将会破坏缓存。
 # 可将 package.json 提前移至目标目录，只要 package.json/lockfile 不发生变动，将不会重新 npm i
 
-FROM node:alpine as builder
+FROM node:alpine
 WORKDIR /app
 ADD package.json package-lock.json ./
 RUN npm config set registry https://registry.npm.taobao.org && \ 
     npm install
 ADD ./ ./
-RUN npm run start
+EXPOSE 3000
+CMD npm run start
 

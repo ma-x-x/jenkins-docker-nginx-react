@@ -5,7 +5,12 @@ function App() {
   const [todoList, setTodoList] = useState([]);
 
   useEffect(() => {
-    fetch("/api/todo").then((response) => {
+    fetch("/api/todo", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((response) => {
       response.json().then(function (data) {
         setTodoList(data);
       });
