@@ -6,7 +6,8 @@
 FROM node:alpine as builder
 WORKDIR /app
 ADD package.json package-lock.json ./
-RUN npm install
+RUN npm config set registry https://registry.npm.taobao.org && \ 
+    npm install
 ADD ./ ./
 RUN npm run build
 
