@@ -16,8 +16,23 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./backend
+    restart: unless-stopped
     container_name: app_backend
     volumes:
       - ./backend:/app
     ports:
       - 4000:4000
+    stdin_open: true
+    tty: true
+    command: npm start
+
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    container_name: app
+    volumes:
+     - ./nginx:/etc/nginx/conf.d
+    stdin_open: true
+    ports:
+      - 9000:9000
