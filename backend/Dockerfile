@@ -9,6 +9,7 @@ EXPOSE 4000
 
 FROM base as production 
 ENV NODE_ENV=production 
-RUN npm i --registry=https://registry.npm.taobao.org && npm install && npm install -g nodemon
+RUN npm i --registry=https://registry.npm.taobao.org 
+RUN npm install && npm install -g nodemon
 COPY . /app/
 CMD npm run start
