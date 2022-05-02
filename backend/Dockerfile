@@ -5,15 +5,7 @@
 FROM node:14-alpine as base 
 WORKDIR /app 
 ADD package.json package-lock.json ./
-<<<<<<< HEAD
-RUN npm config set registry https://registry.npm.taobao.org && \ 
-    npm install
-ADD ./ ./
-EXPOSE 4000
-CMD npm run start
-=======
 EXPOSE 4000 
->>>>>>> 1b93cec29b5d32768bc2934307ab91c953ee2887
 
 FROM base as production 
 ENV NODE_ENV=production 
