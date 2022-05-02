@@ -2,13 +2,22 @@
 # 多个 RUN 命令，不利于 Docker 的镜像分层存储。可合并为一个 RUN 命令
 # 每次都需要 npm i，可合理利用 Docker 缓存，ADD 命令中内容发生改变将会破坏缓存。
 # 可将 package.json 提前移至目标目录，只要 package.json/lockfile 不发生变动，将不会重新 npm i
-
-FROM node:alpine
-WORKDIR /app
+FROM node:14-alpine as base 
+WORKDIR /app 
 ADD package.json package-lock.json ./
+<<<<<<< HEAD
 RUN npm config set registry https://registry.npm.taobao.org && \ 
     npm install
 ADD ./ ./
 EXPOSE 4000
 CMD npm run start
+=======
+EXPOSE 4000 
+>>>>>>> 1b93cec29b5d32768bc2934307ab91c953ee2887
 
+FROM base as production 
+ENV NODE_ENV=production 
+RUN npm i --registry=https://registry.npm.taobao.org 
+RUN npm install && npm install -g nodemon
+COPY . /app/
+CMD npm run start
